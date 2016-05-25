@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--生成过程中发现错误:
+警告 6013: 表/视图“Test.dbo.Table_1”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
+        <EntityType Name="Table_1">
+          <Property Name="单号" Type="nchar" MaxLength="10" />
+          <Property Name="业务号" Type="nchar" MaxLength="10" />
+          <Property Name="收银号" Type="nchar" MaxLength="10" />
+          <Property Name="开单时间" Type="nchar" MaxLength="10" />
+          <Property Name="金额" Type="nchar" MaxLength="10" />
+          <Property Name="抹零" Type="nchar" MaxLength="10" />
+        </EntityType>-->
+        <EntityType Name="Table_2">
+          <Key>
+            <PropertyRef Name="序" />
+          </Key>
+          <Property Name="序" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="货号" Type="int" />
+          <Property Name="条码" Type="int" />
+          <Property Name="品名规格" Type="nchar" MaxLength="10" />
+          <Property Name="数量" Type="int" />
+          <Property Name="单价" Type="int" />
+          <Property Name="金额" Type="int" />
+        </EntityType>
+        <EntityType Name="Table_3">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="10" />
+          <Property Name="sex" Type="nchar" MaxLength="10" />
+          <Property Name="age" Type="int" />
+        </EntityType>
+        <EntityType Name="TestAccount">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="passWord" Type="nchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="TestModelStoreContainer">
+          <EntitySet Name="Table_2" EntityType="Self.Table_2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_3" EntityType="Self.Table_3" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestAccount" EntityType="Self.TestAccount" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Table_2">
+          <Key>
+            <PropertyRef Name="序" />
+          </Key>
+          <Property Name="序" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="货号" Type="Int32" />
+          <Property Name="条码" Type="Int32" />
+          <Property Name="品名规格" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="数量" Type="Int32" />
+          <Property Name="单价" Type="Int32" />
+          <Property Name="金额" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Table_3">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="sex" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="age" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TestAccount">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="passWord" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="TestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Table_2" EntityType="Self.Table_2" />
+          <EntitySet Name="Table_3" EntityType="Self.Table_3" />
+          <EntitySet Name="TestAccounts" EntityType="Self.TestAccount" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestModelStoreContainer" CdmEntityContainer="TestEntities">
+          <EntitySetMapping Name="Table_2">
+            <EntityTypeMapping TypeName="TestModel.Table_2">
+              <MappingFragment StoreEntitySet="Table_2">
+                <ScalarProperty Name="序" ColumnName="序" />
+                <ScalarProperty Name="货号" ColumnName="货号" />
+                <ScalarProperty Name="条码" ColumnName="条码" />
+                <ScalarProperty Name="品名规格" ColumnName="品名规格" />
+                <ScalarProperty Name="数量" ColumnName="数量" />
+                <ScalarProperty Name="单价" ColumnName="单价" />
+                <ScalarProperty Name="金额" ColumnName="金额" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_3">
+            <EntityTypeMapping TypeName="TestModel.Table_3">
+              <MappingFragment StoreEntitySet="Table_3">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="age" ColumnName="age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestAccounts">
+            <EntityTypeMapping TypeName="TestModel.TestAccount">
+              <MappingFragment StoreEntitySet="TestAccount">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
